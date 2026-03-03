@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#2563eb"/>
+  <g transform="translate(256,256)">
+    <!-- Airplane -->
+    <g transform="rotate(-30)">
+      <path d="M-20,-140 L20,-140 L30,-40 L120,20 L120,45 L30,15 L25,80 L55,105 L55,125 L5,110 L-5,110 L-55,125 L-55,105 L-25,80 L-30,15 L-120,45 L-120,20 L-30,-40 Z" fill="white"/>
+    </g>
+  </g>
+  <!-- VN text -->
+  <text x="256" y="460" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="72" fill="rgba(255,255,255,0.9)">VN</text>
+</svg>

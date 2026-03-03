@@ -1,5 +1,92 @@
-// Service Worker for VN Flight Finder push notifications
+// Service Worker for VN Flight Finder — PWA + Push Notifications
 
+const CACHE_NAME = "vn-flights-v1";
+const OFFLINE_URL = "/offline";
+
+// Static assets to pre-cache on install
+const PRECACHE_ASSETS = [
+  "/",
+  "/offline",
+  "/icon-192.png",
+  "/icon-512.png",
+  "/icon.svg",
+];
+
+// ─── Install: pre-cache app shell ────────────────────────────
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS))
+  );
+  self.skipWaiting();
+});
+
+// ─── Activate: clean old caches ──────────────────────────────
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys
+          .filter((key) => key !== CACHE_NAME)
+          .map((key) => caches.delete(key))
+      )
+    )
+  );
+  self.clients.claim();
+});
+
+// ─── Fetch: caching strategies ───────────────────────────────
+self.addEventListener("fetch", (event) => {
+  const { request } = event;
+  const url = new URL(request.url);
+
+  // Skip non-GET requests
+  if (request.method !== "GET") return;
+
+  // Skip API calls and external requests — always go to network
+  if (url.pathname.startsWith("/api/") || url.origin !== self.location.origin) {
+    return;
+  }
+
+  // For navigation requests: network-first, fallback to cache then offline page
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          // Cache successful navigation responses
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+          return response;
+        })
+        .catch(() =>
+          caches
+            .match(request)
+            .then((cached) => cached || caches.match(OFFLINE_URL))
+        )
+    );
+    return;
+  }
+
+  // For static assets (_next/static, images, fonts): cache-first
+  if (
+    url.pathname.startsWith("/_next/static/") ||
+    url.pathname.match(/\.(png|jpg|jpeg|svg|gif|ico|woff2?|ttf|css|js)$/)
+  ) {
+    event.respondWith(
+      caches.match(request).then(
+        (cached) =>
+          cached ||
+          fetch(request).then((response) => {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+            return response;
+          })
+      )
+    );
+    return;
+  }
+});
+
+// ─── Push Notifications ──────────────────────────────────────
 self.addEventListener("push", (event) => {
   const data = event.data ? event.data.json() : {};
 
@@ -29,17 +116,16 @@ self.addEventListener("notificationclick", (event) => {
   const url = event.notification.data?.url || "/";
 
   event.waitUntil(
-    // eslint-disable-next-line no-undef
-    clients.matchAll({ type: "window", includeUncontrolled: true }).then((windowClients) => {
-      // Focus existing window if open
-      for (const client of windowClients) {
-        if (client.url.includes(self.location.origin) && "focus" in client) {
-          client.navigate(url);
-          return client.focus();
+    clients
+      .matchAll({ type: "window", includeUncontrolled: true })
+      .then((windowClients) => {
+        for (const client of windowClients) {
+          if (client.url.includes(self.location.origin) && "focus" in client) {
+            client.navigate(url);
+            return client.focus();
+          }
         }
-      }
-      // Open new window
-      return clients.openWindow(url);
-    })
+        return clients.openWindow(url);
+      })
   );
 });

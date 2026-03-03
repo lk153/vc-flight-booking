@@ -61,17 +61,17 @@ export function AirportSelect({
           setTimeout(() => inputRef.current?.focus(), 0);
         }}
         className={cn(
-          "flex w-full items-baseline gap-2 rounded-xl border border-border bg-white px-4 py-3 text-left transition-all",
+          "flex w-full overflow-hidden items-baseline gap-2 rounded-xl border border-border bg-white px-4 py-3 text-left transition-all",
           "hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/20",
           isOpen && "border-primary ring-2 ring-primary/20"
         )}
       >
         {selectedAirport ? (
           <>
-            <span className="text-xl font-bold text-foreground">
+            <span className="shrink-0 text-xl font-bold text-foreground">
               {selectedAirport.iataCode}
             </span>
-            <span className="truncate text-sm text-muted-foreground">
+            <span className="min-w-0 truncate text-sm text-muted-foreground">
               {selectedAirport.city}
             </span>
           </>
@@ -81,7 +81,7 @@ export function AirportSelect({
       </button>
 
       {isOpen && (
-        <div className="absolute top-full z-50 mt-1 w-full min-w-60 rounded-xl border border-border bg-white shadow-lg">
+        <div className="absolute top-full z-50 mt-1 w-full rounded-xl border border-border bg-white shadow-lg">
           <div className="p-2">
             <input
               ref={inputRef}

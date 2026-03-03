@@ -63,10 +63,10 @@ function AlertsContent() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen overflow-x-hidden bg-background">
       <Header />
 
-      <main className="mx-auto max-w-3xl px-4 pb-12">
+      <main className="mx-auto max-w-3xl overflow-hidden px-4 pb-12">
         <div className="py-6">
           <h1 className="mb-1 text-2xl font-bold text-foreground">
             Price Alerts
@@ -78,7 +78,7 @@ function AlertsContent() {
 
         <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
           {/* Alert list */}
-          <div className="space-y-4">
+          <div className="min-w-0 space-y-4">
             {loading ? (
               <div className="space-y-3">
                 {Array.from({ length: 3 }).map((_, i) => (
@@ -98,7 +98,7 @@ function AlertsContent() {
           </div>
 
           {/* Create form (sidebar on desktop) */}
-          <div>
+          <div className="min-w-0">
             <AlertForm
               onCreated={fetchAlerts}
               defaultOrigin={prefillOrigin}
