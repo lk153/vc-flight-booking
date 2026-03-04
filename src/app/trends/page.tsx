@@ -85,7 +85,7 @@ export default function TrendsPage() {
             <button
               type="button"
               onClick={handleSwap}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-white text-muted-foreground transition-all hover:border-primary hover:text-primary"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-muted text-muted-foreground transition-all hover:border-primary hover:text-primary"
             >
               <ArrowRightLeft className="h-4 w-4" />
             </button>
@@ -108,7 +108,7 @@ export default function TrendsPage() {
         ) : (
           <div className="space-y-8">
             {/* Price History Chart */}
-            <section className="rounded-2xl border border-border bg-white p-4 sm:p-6">
+            <section className="rounded-2xl border border-border bg-card p-4 sm:p-6">
               <h2 className="mb-4 flex items-center gap-2 text-base font-semibold text-foreground">
                 <TrendingDown className="h-4 w-4 text-primary" />
                 30-Day Price History
@@ -117,7 +117,7 @@ export default function TrendsPage() {
             </section>
 
             {/* Calendar Heatmap */}
-            <section className="rounded-2xl border border-border bg-white p-4 sm:p-6">
+            <section className="rounded-2xl border border-border bg-card p-4 sm:p-6">
               <h2 className="mb-4 text-base font-semibold text-foreground">
                 Cheapest Days to Fly (next 30 days)
               </h2>
@@ -125,8 +125,8 @@ export default function TrendsPage() {
             </section>
 
             {/* Tip */}
-            <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-              <p className="text-sm text-blue-800">
+            <div className="rounded-xl border border-primary/30 bg-primary/10 p-4">
+              <p className="text-sm text-primary">
                 <span className="font-semibold">Tip:</span> Flights on
                 Tuesday and Wednesday are typically 15-20% cheaper. Book 3-4
                 weeks in advance for the best deals.

@@ -40,15 +40,15 @@ export function FlightCard({ flight, isBestPrice, rank }: FlightCardProps) {
   return (
     <div
       className={cn(
-        "group relative rounded-xl border bg-white p-4 transition-all hover:shadow-md sm:p-5",
+        "group relative rounded-xl border bg-card p-4 transition-all hover:shadow-md sm:p-5",
         isBestPrice
-          ? "border-amber-300 shadow-sm ring-1 ring-amber-200"
+          ? "border-accent/60 shadow-sm ring-1 ring-accent/30"
           : "border-border"
       )}
     >
       {/* Best price badge */}
       {isBestPrice && (
-        <Badge className="absolute -top-2.5 left-4 bg-amber-500 text-white hover:bg-amber-500">
+        <Badge className="absolute -top-2.5 left-4 bg-accent text-accent-foreground hover:bg-accent">
           BEST PRICE
         </Badge>
       )}
@@ -108,7 +108,7 @@ export function FlightCard({ flight, isBestPrice, rank }: FlightCardProps) {
           <p
             className={cn(
               "text-xl font-bold",
-              isBestPrice ? "text-amber-600" : "text-foreground"
+              isBestPrice ? "text-accent" : "text-foreground"
             )}
           >
             {formatPrice(flight.priceVND)}

@@ -61,7 +61,7 @@ export function AirportSelect({
           setTimeout(() => inputRef.current?.focus(), 0);
         }}
         className={cn(
-          "flex w-full overflow-hidden items-baseline gap-2 rounded-xl border border-border bg-white px-4 py-3 text-left transition-all",
+          "flex w-full overflow-hidden items-baseline gap-2 rounded-xl border border-border bg-muted px-4 py-3 text-left transition-all",
           "hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/20",
           isOpen && "border-primary ring-2 ring-primary/20"
         )}
@@ -81,7 +81,7 @@ export function AirportSelect({
       </button>
 
       {isOpen && (
-        <div className="absolute top-full z-50 mt-1 w-full rounded-xl border border-border bg-white shadow-lg">
+        <div className="absolute top-full z-50 mt-1 w-full rounded-xl border border-border bg-card shadow-lg">
           <div className="p-2">
             <input
               ref={inputRef}
@@ -89,7 +89,7 @@ export function AirportSelect({
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search city or airport code..."
-              className="w-full rounded-lg border border-border bg-secondary px-3 py-2 text-sm outline-none focus:border-primary"
+              className="w-full rounded-lg border border-border bg-secondary px-3 py-2 text-sm text-foreground outline-none focus:border-primary"
             />
           </div>
           <div className="max-h-60 overflow-y-auto px-1 pb-1">

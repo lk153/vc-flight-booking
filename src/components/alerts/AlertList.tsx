@@ -37,7 +37,7 @@ export function AlertList({ alerts, onDelete, onToggle }: AlertListProps) {
           <div
             key={alert.id}
             className={cn(
-              "rounded-xl border bg-white p-4 transition-all",
+              "rounded-xl border bg-card p-4 transition-all",
               alert.isActive ? "border-border" : "border-border opacity-60"
             )}
           >
@@ -118,7 +118,7 @@ export function AlertList({ alerts, onDelete, onToggle }: AlertListProps) {
                 </button>
                 <button
                   onClick={() => onDelete(alert.id)}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-red-50 hover:text-destructive"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
                   title="Delete"
                 >
                   <Trash2 className="h-3.5 w-3.5" />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { useTheme } from "next-themes";
 import {
   LineChart,
   Line,
@@ -20,6 +21,18 @@ interface PriceChartProps {
 }
 
 export function PriceChart({ snapshots }: PriceChartProps) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
+  const colors = {
+    grid: isDark ? "#1e4a60" : "#e2e8f0",
+    tick: isDark ? "#8eaab8" : "#64748b",
+    tooltipBg: isDark ? "#132f42" : "#ffffff",
+    tooltipBorder: isDark ? "#1e4a60" : "#e2e8f0",
+    tooltipText: isDark ? "#f0ece4" : "#1a1a2e",
+    legend: isDark ? "#8eaab8" : "#64748b",
+  };
+
   // Transform: group by date, airline as columns
   const chartData = useMemo(() => {
     const byDate = new Map<string, Record<string, number>>();
@@ -57,24 +70,26 @@ export function PriceChart({ snapshots }: PriceChartProps) {
     <div className="h-80 w-full">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+          <CartesianGrid strokeDasharray="3 3" stroke={colors.grid} />
           <XAxis
             dataKey="date"
-            tick={{ fontSize: 11, fill: "#64748b" }}
+            tick={{ fontSize: 11, fill: colors.tick }}
             tickFormatter={(d: string) => {
               const date = new Date(d);
               return `${date.getDate()}/${date.getMonth() + 1}`;
             }}
           />
           <YAxis
-            tick={{ fontSize: 11, fill: "#64748b" }}
+            tick={{ fontSize: 11, fill: colors.tick }}
             tickFormatter={(v: number) => formatPriceShort(v)}
             width={50}
           />
           <Tooltip
             contentStyle={{
               borderRadius: "12px",
-              border: "1px solid #e2e8f0",
+              border: `1px solid ${colors.tooltipBorder}`,
+              backgroundColor: colors.tooltipBg,
+              color: colors.tooltipText,
               boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
               fontSize: 12,
             }}
@@ -103,7 +118,7 @@ export function PriceChart({ snapshots }: PriceChartProps) {
               const airline = AIRLINES.find((a) => a.iataCode === value);
               return airline?.name || value;
             }}
-            wrapperStyle={{ fontSize: 12 }}
+            wrapperStyle={{ fontSize: 12, color: colors.legend }}
           />
           {airlinesInData.map((airline) => (
             <Line

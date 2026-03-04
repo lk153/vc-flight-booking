@@ -24,7 +24,7 @@ export function PopularRoutes() {
             <Link
               key={`${route.origin}-${route.destination}`}
               href={`/search?origin=${route.origin}&dest=${route.destination}&date=${defaultDate}&pax=1`}
-              className="group rounded-xl border border-border bg-white p-4 transition-all hover:border-primary/30 hover:shadow-md"
+              className="group rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/30 hover:shadow-md"
             >
               <div className="mb-2 flex items-center gap-1 text-xs text-muted-foreground">
                 <span className="font-bold text-foreground">

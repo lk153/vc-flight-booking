@@ -78,7 +78,7 @@ export function FlightList({ flights }: FlightListProps) {
   return (
     <div className="space-y-4">
       {/* Price comparison bar */}
-      <div className="flex flex-wrap gap-2 rounded-xl border border-border bg-white p-3">
+      <div className="flex flex-wrap gap-2 rounded-xl border border-border bg-card p-3">
         <span className="mr-1 self-center text-xs font-medium text-muted-foreground">
           Best prices:
         </span>

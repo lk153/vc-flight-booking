@@ -75,7 +75,7 @@ export function AlertForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-2xl border border-border bg-white p-4 sm:p-6"
+      className="rounded-2xl border border-border bg-card p-4 sm:p-6"
     >
       <h3 className="mb-4 text-base font-semibold text-foreground">
         Create Price Alert
@@ -121,7 +121,7 @@ export function AlertForm({
               min={today}
               onChange={(e) => setDate(e.target.value)}
               required
-              className="h-11 w-full rounded-xl border border-border bg-white px-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+              className="h-11 w-full rounded-xl border border-border bg-muted px-3 text-sm text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
             />
           </div>
           <div>
@@ -147,7 +147,7 @@ export function AlertForm({
             Notify via
           </label>
           <div className="flex flex-wrap gap-2">
-            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-border px-3 py-2 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-border px-3 py-2 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/10">
               <input
                 type="checkbox"
                 checked={notifyPush}
@@ -157,7 +157,7 @@ export function AlertForm({
               <Bell className="h-3.5 w-3.5 text-muted-foreground" />
               <span className="text-xs font-medium">Browser</span>
             </label>
-            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-border px-3 py-2 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-border px-3 py-2 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/10">
               <input
                 type="checkbox"
                 checked={notifyEmail}
@@ -167,7 +167,7 @@ export function AlertForm({
               <Mail className="h-3.5 w-3.5 text-muted-foreground" />
               <span className="text-xs font-medium">Email</span>
             </label>
-            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-border px-3 py-2 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-border px-3 py-2 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/10">
               <input
                 type="checkbox"
                 checked={notifyNtfy}

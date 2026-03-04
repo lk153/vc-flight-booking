@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { PWARegister } from "@/components/PWARegister";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -12,7 +13,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#2563eb",
+  themeColor: "#0b1e2d",
 };
 
 export const metadata: Metadata = {
@@ -40,10 +41,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`}>
-        {children}
-        <PWARegister />
+        <ThemeProvider>
+          {children}
+          <PWARegister />
+        </ThemeProvider>
       </body>
     </html>
   );

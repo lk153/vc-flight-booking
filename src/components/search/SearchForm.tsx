@@ -49,7 +49,7 @@ export function SearchForm({
 
   return (
     <form onSubmit={handleSearch} className="w-full">
-      <div className="rounded-2xl border border-border bg-white p-4 shadow-sm sm:p-6">
+      <div className="rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:gap-2">
           {/* Origin */}
           <div className="flex-1">
@@ -65,7 +65,7 @@ export function SearchForm({
           <button
             type="button"
             onClick={handleSwap}
-            className="flex h-11 w-11 shrink-0 items-center justify-center self-end rounded-full border border-border bg-white text-muted-foreground transition-all hover:border-primary hover:bg-primary/5 hover:text-primary"
+            className="flex h-11 w-11 shrink-0 items-center justify-center self-end rounded-full border border-border bg-muted text-muted-foreground transition-all hover:border-primary hover:bg-primary/5 hover:text-primary"
             title="Swap origin and destination"
           >
             <ArrowRightLeft className="h-4 w-4" />
@@ -91,7 +91,7 @@ export function SearchForm({
               value={date}
               min={today}
               onChange={(e) => setDate(e.target.value)}
-              className="h-[50px] w-full rounded-xl border border-border bg-white px-4 text-sm transition-all hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+              className="h-[50px] w-full rounded-xl border border-border bg-muted px-4 text-sm text-foreground transition-all hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
             />
           </div>
 
@@ -103,7 +103,7 @@ export function SearchForm({
             <select
               value={passengers}
               onChange={(e) => setPassengers(Number(e.target.value))}
-              className="h-[50px] w-full rounded-xl border border-border bg-white px-3 text-sm transition-all hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+              className="h-[50px] w-full rounded-xl border border-border bg-muted px-3 text-sm text-foreground transition-all hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
             >
               {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
                 <option key={n} value={n}>

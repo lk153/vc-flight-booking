@@ -47,78 +47,86 @@
 
 :root {
     --radius: 0.75rem;
-    /* Bright blue-primary theme for VN Flight Finder */
-    --background: #f8fafc;       /* Slate 50 */
-    --foreground: #0f172a;       /* Slate 900 */
+    /* Light theme */
+    --background: #f8f9fa;
+    --foreground: #1a1a2e;
     --card: #ffffff;
-    --card-foreground: #0f172a;
+    --card-foreground: #1a1a2e;
     --popover: #ffffff;
-    --popover-foreground: #0f172a;
-    --primary: #2563eb;          /* Blue 600 */
+    --popover-foreground: #1a1a2e;
+    --primary: #e8762b;
     --primary-foreground: #ffffff;
-    --secondary: #f1f5f9;        /* Slate 100 */
-    --secondary-foreground: #0f172a;
-    --muted: #f1f5f9;
-    --muted-foreground: #64748b; /* Slate 500 */
-    --accent: #f59e0b;           /* Amber 500 */
+    --secondary: #f0f4f8;
+    --secondary-foreground: #1a1a2e;
+    --muted: #f0f4f8;
+    --muted-foreground: #64748b;
+    --accent: #f59e0b;
     --accent-foreground: #ffffff;
-    --destructive: #ef4444;      /* Red 500 */
-    --border: #e2e8f0;           /* Slate 200 */
+    --destructive: #ef4444;
+    --border: #e2e8f0;
     --input: #e2e8f0;
-    --ring: #2563eb;             /* Blue 600 */
-    --chart-1: #2563eb;          /* Blue - Vietnam Airlines */
-    --chart-2: #ef4444;          /* Red - Vietjet */
-    --chart-3: #10b981;          /* Green - Bamboo */
-    --chart-4: #f59e0b;          /* Amber - Vietravel */
-    --chart-5: #8b5cf6;          /* Violet - Pacific */
-    --success: #10b981;          /* Emerald 500 */
+    --ring: #e8762b;
+    --chart-1: #4d9de0;
+    --chart-2: #ef4444;
+    --chart-3: #3bb273;
+    --chart-4: #d97706;
+    --chart-5: #a78bfa;
+    --success: #10b981;
     --sidebar: #ffffff;
-    --sidebar-foreground: #0f172a;
-    --sidebar-primary: #2563eb;
+    --sidebar-foreground: #1a1a2e;
+    --sidebar-primary: #e8762b;
     --sidebar-primary-foreground: #ffffff;
-    --sidebar-accent: #f1f5f9;
-    --sidebar-accent-foreground: #0f172a;
+    --sidebar-accent: #f0f4f8;
+    --sidebar-accent-foreground: #1a1a2e;
     --sidebar-border: #e2e8f0;
-    --sidebar-ring: #2563eb;
+    --sidebar-ring: #e8762b;
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.488 0.243 264.376);
-    --chart-2: oklch(0.696 0.17 162.48);
-    --chart-3: oklch(0.769 0.188 70.08);
-    --chart-4: oklch(0.627 0.265 303.9);
-    --chart-5: oklch(0.645 0.246 16.439);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+    /* Dark teal infographic theme */
+    --background: #0b1e2d;
+    --foreground: #f0ece4;
+    --card: #132f42;
+    --card-foreground: #f0ece4;
+    --popover: #132f42;
+    --popover-foreground: #f0ece4;
+    --primary: #e8762b;
+    --primary-foreground: #ffffff;
+    --secondary: #1a4a5e;
+    --secondary-foreground: #f0ece4;
+    --muted: #163348;
+    --muted-foreground: #8eaab8;
+    --accent: #f0d9a0;
+    --accent-foreground: #0b1e2d;
+    --destructive: #ef4444;
+    --border: #1e4a60;
+    --input: #1e4a60;
+    --ring: #e8762b;
+    --chart-1: #4d9de0;
+    --chart-2: #ef4444;
+    --chart-3: #3bb273;
+    --chart-4: #f0d9a0;
+    --chart-5: #a78bfa;
+    --success: #10b981;
+    --sidebar: #132f42;
+    --sidebar-foreground: #f0ece4;
+    --sidebar-primary: #e8762b;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #1a4a5e;
+    --sidebar-accent-foreground: #f0ece4;
+    --sidebar-border: #1e4a60;
+    --sidebar-ring: #e8762b;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    }
+  html {
+    color-scheme: light;
+    }
+  html.dark {
+    color-scheme: dark;
     }
   body {
     @apply bg-background text-foreground;

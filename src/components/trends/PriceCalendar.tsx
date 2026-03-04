@@ -82,9 +82,9 @@ export function PriceCalendar({ days }: PriceCalendarProps) {
               key={day.date}
               className={cn(
                 "flex flex-col items-center rounded-lg p-1.5 transition-all sm:p-2",
-                level === "low" && "bg-emerald-50 text-emerald-700",
-                level === "mid" && "bg-amber-50 text-amber-700",
-                level === "high" && "bg-red-50 text-red-600",
+                level === "low" && "bg-emerald-50 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400",
+                level === "mid" && "bg-amber-50 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400",
+                level === "high" && "bg-red-50 text-red-600 dark:bg-red-900/40 dark:text-red-400",
                 isCheapest && "ring-2 ring-emerald-400"
               )}
             >

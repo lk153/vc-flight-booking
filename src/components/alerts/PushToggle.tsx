@@ -39,8 +39,8 @@ export function PushToggle() {
 
   if (!supported) {
     return (
-      <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
-        <p className="text-xs text-amber-700">
+      <div className="rounded-xl border border-accent/30 bg-accent/10 p-3">
+        <p className="text-xs text-accent">
           Browser push notifications are not supported in this browser.
           Use email alerts instead.
         </p>
@@ -49,7 +49,7 @@ export function PushToggle() {
   }
 
   return (
-    <div className="rounded-xl border border-border bg-white p-4">
+    <div className="rounded-xl border border-border bg-card p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           {subscribed ? (
@@ -74,7 +74,7 @@ export function PushToggle() {
           disabled={loading}
           className={cn(
             "relative h-7 w-12 rounded-full transition-colors",
-            subscribed ? "bg-primary" : "bg-muted",
+            subscribed ? "bg-primary" : "bg-secondary",
             loading && "opacity-50"
           )}
         >
