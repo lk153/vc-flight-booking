@@ -17,4 +17,4 @@ jobs:
     - name: 'notify vercel'
       uses: 'vercel/repository-dispatch/actions/status@v1'
       with:
-        name: Vercel - vc-flight-booking-123: lint
+        name: 'Vercel - vc-flight-booking-123: lint'
