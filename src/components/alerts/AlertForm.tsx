@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AirportSelect } from "@/components/search/AirportSelect";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRightLeft, Bell, Mail } from "lucide-react";
+import { ArrowRightLeft, Bell, Mail, Smartphone } from "lucide-react";
 
 interface AlertFormProps {
   onCreated: () => void;
@@ -28,6 +28,7 @@ export function AlertForm({
   const [email, setEmail] = useState("");
   const [notifyPush, setNotifyPush] = useState(true);
   const [notifyEmail, setNotifyEmail] = useState(false);
+  const [notifyNtfy, setNotifyNtfy] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
   const today = new Date().toISOString().split("T")[0];
@@ -54,6 +55,7 @@ export function AlertForm({
           email: notifyEmail ? email : undefined,
           notifyPush,
           notifyEmail,
+          notifyNtfy,
         }),
       });
 
@@ -144,7 +146,7 @@ export function AlertForm({
           <label className="mb-2 block text-xs font-medium text-muted-foreground">
             Notify via
           </label>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-2">
             <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-border px-3 py-2 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
               <input
                 type="checkbox"
@@ -164,6 +166,16 @@ export function AlertForm({
               />
               <Mail className="h-3.5 w-3.5 text-muted-foreground" />
               <span className="text-xs font-medium">Email</span>
+            </label>
+            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-border px-3 py-2 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+              <input
+                type="checkbox"
+                checked={notifyNtfy}
+                onChange={(e) => setNotifyNtfy(e.target.checked)}
+                className="accent-primary"
+              />
+              <Smartphone className="h-3.5 w-3.5 text-muted-foreground" />
+              <span className="text-xs font-medium">Mobile</span>
             </label>
           </div>
         </div>

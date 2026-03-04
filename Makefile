@@ -57,6 +57,9 @@ pwa-icons:
 vapid-keys:
 	npx web-push generate-vapid-keys
 
-# Cron: manually trigger price check
+# Cron: manually trigger price check (reads CRON_SECRET from .env.local)
 check-prices:
-	curl -s -X POST http://localhost:3000/api/cron/check-prices -H "Content-Type: application/json" | jq .
+	@SECRET=$$(grep '^CRON_SECRET=' .env.local 2>/dev/null | cut -d'=' -f2); \
+	curl -s -X POST http://localhost:3000/api/cron/check-prices \
+		-H "Content-Type: application/json" \
+		-H "Authorization: Bearer $$SECRET" | jq .

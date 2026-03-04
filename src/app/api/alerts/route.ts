@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { origin, destination, departureDate, maxPriceVND, email, notifyEmail, notifyPush } = body;
+    const { origin, destination, departureDate, maxPriceVND, email, notifyEmail, notifyPush, notifyNtfy } = body;
 
     if (!origin || !destination || !departureDate || !maxPriceVND) {
       return NextResponse.json(
@@ -27,6 +27,7 @@ export async function POST(request: NextRequest) {
       email: email || undefined,
       notifyEmail: !!notifyEmail,
       notifyPush: !!notifyPush,
+      notifyNtfy: !!notifyNtfy,
     });
 
     return NextResponse.json({ alert }, { status: 201 });

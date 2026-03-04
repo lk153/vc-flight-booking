@@ -56,6 +56,7 @@ export interface PriceAlert {
   email?: string;
   notifyEmail: boolean;
   notifyPush: boolean;
+  notifyNtfy: boolean;
   isActive: boolean;
   createdAt: string;
   triggeredAt?: string;
