@@ -5,7 +5,7 @@ import { sendPushNotification } from "@/lib/push-server";
 import { sendNtfyNotification } from "@/lib/ntfy";
 import { formatPrice } from "@/lib/utils";
 
-export async function POST(request: NextRequest) {
+async function checkPrices(request: NextRequest) {
   // Verify cron secret (skip check if no secret configured — dev mode)
   const authHeader = request.headers.get("authorization");
   const cronSecret = process.env.CRON_SECRET;
@@ -99,3 +99,6 @@ export async function POST(request: NextRequest) {
     checkedAt: new Date().toISOString(),
   });
 }
+
+// Vercel Cron calls GET
+export { checkPrices as GET, checkPrices as POST };
