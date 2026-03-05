@@ -6,6 +6,7 @@ import { Header } from "@/components/ui/Header";
 import { AlertForm } from "@/components/alerts/AlertForm";
 import { AlertList } from "@/components/alerts/AlertList";
 import { PushToggle } from "@/components/alerts/PushToggle";
+import { BottomNav } from "@/components/ui/BottomNav";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { PriceAlert } from "@/types";
 
@@ -63,7 +64,7 @@ function AlertsContent() {
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-background">
+    <div className="min-h-screen overflow-x-hidden bg-background pb-20 sm:pb-0">
       <Header />
 
       <main className="mx-auto max-w-3xl overflow-hidden px-4 pb-12">
@@ -109,6 +110,8 @@ function AlertsContent() {
           </div>
         </div>
       </main>
+
+      <BottomNav />
     </div>
   );
 }

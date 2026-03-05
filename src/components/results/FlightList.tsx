@@ -3,9 +3,9 @@
 import { useState, useMemo } from "react";
 import type { FlightOffer } from "@/types";
 import { AIRLINES } from "@/lib/airports";
-import { formatPriceShort, cn } from "@/lib/utils";
+import { formatPriceShort, formatDuration, cn } from "@/lib/utils";
 import { FlightCard } from "./FlightCard";
-import { ArrowUpDown, SlidersHorizontal } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 type SortKey = "price" | "departure" | "duration";
 
@@ -16,7 +16,6 @@ interface FlightListProps {
 export function FlightList({ flights }: FlightListProps) {
   const [sortBy, setSortBy] = useState<SortKey>("price");
   const [airlineFilter, setAirlineFilter] = useState<string | null>(null);
-  const [showFilters, setShowFilters] = useState(false);
 
   // Best price per airline
   const bestByAirline = useMemo(() => {
@@ -28,6 +27,17 @@ export function FlightList({ flights }: FlightListProps) {
       }
     }
     return map;
+  }, [flights]);
+
+  // Summary stats
+  const stats = useMemo(() => {
+    const sorted = [...flights];
+    const cheapest = sorted.sort((a, b) => a.priceVND - b.priceVND)[0];
+    const fastest = sorted.sort((a, b) => a.duration - b.duration)[0];
+    return {
+      cheapestPrice: cheapest ? formatPriceShort(cheapest.priceVND) + "đ" : "—",
+      fastestDuration: fastest ? formatDuration(fastest.duration) : "—",
+    };
   }, [flights]);
 
   // Filter & sort
@@ -75,13 +85,35 @@ export function FlightList({ flights }: FlightListProps) {
     flights.some((f) => f.airline.iataCode === a.iataCode)
   );
 
+  const SORT_TABS: { key: SortKey; label: string; value: string }[] = [
+    { key: "price", label: "Cheapest", value: stats.cheapestPrice },
+    { key: "duration", label: "Fastest", value: stats.fastestDuration },
+    { key: "departure", label: "Earliest", value: "By time" },
+  ];
+
   return (
-    <div className="space-y-4">
-      {/* Price comparison bar */}
-      <div className="flex flex-wrap gap-2 rounded-xl border border-border bg-card p-3">
-        <span className="mr-1 self-center text-xs font-medium text-muted-foreground">
-          Best prices:
-        </span>
+    <div>
+      {/* Sort tabs — underline style */}
+      <div className="flex border-b border-border">
+        {SORT_TABS.map(({ key, label, value }) => (
+          <button
+            key={key}
+            onClick={() => setSortBy(key)}
+            className={cn(
+              "flex flex-1 flex-col items-center pb-3 pt-4 transition-colors",
+              sortBy === key
+                ? "border-b-2 border-primary text-primary"
+                : "border-b-2 border-transparent text-muted-foreground"
+            )}
+          >
+            <span className="text-sm font-bold">{label}</span>
+            <span className="text-[10px] opacity-80">{value}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Filter pills — horizontal scroll */}
+      <div className="flex gap-2 overflow-x-auto py-3">
         {airlinesInResults
           .sort(
             (a, b) =>
@@ -93,94 +125,48 @@ export function FlightList({ flights }: FlightListProps) {
               key={airline.iataCode}
               onClick={() =>
                 setAirlineFilter(
-                  airlineFilter === airline.iataCode
-                    ? null
-                    : airline.iataCode
+                  airlineFilter === airline.iataCode ? null : airline.iataCode
                 )
               }
               className={cn(
-                "flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium transition-all",
+                "flex h-9 shrink-0 items-center gap-1.5 rounded-full border px-4 text-sm font-medium transition-all",
                 airlineFilter === airline.iataCode
-                  ? "ring-2 ring-primary"
-                  : "hover:bg-secondary"
+                  ? "border-primary bg-primary/10 text-primary dark:bg-primary/20"
+                  : "border-border bg-card text-foreground hover:border-primary/30"
               )}
-              style={{
-                backgroundColor:
-                  airlineFilter === airline.iataCode
-                    ? airline.color + "15"
-                    : undefined,
-              }}
             >
               <span
                 className="h-2 w-2 rounded-full"
                 style={{ backgroundColor: airline.color }}
               />
-              <span>{airline.iataCode}</span>
-              <span className="font-bold" style={{ color: airline.color }}>
-                {formatPriceShort(bestByAirline.get(airline.iataCode) ?? 0)}
-              </span>
+              {airline.iataCode}
+              <ChevronDown className="h-3 w-3 text-muted-foreground" />
             </button>
           ))}
         {airlineFilter && (
           <button
             onClick={() => setAirlineFilter(null)}
-            className="ml-auto text-xs text-primary hover:underline"
+            className="flex h-9 shrink-0 items-center rounded-full border border-destructive/30 bg-destructive/10 px-4 text-sm font-medium text-destructive"
           >
-            Clear filter
+            Clear
           </button>
         )}
       </div>
 
-      {/* Sort & filter controls */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary hover:text-primary sm:hidden"
-          >
-            <SlidersHorizontal className="h-3.5 w-3.5" />
-            Filters
-          </button>
-        </div>
-
-        <div className="flex items-center gap-1 rounded-lg border border-border p-0.5">
-          {(
-            [
-              { key: "price", label: "Cheapest" },
-              { key: "departure", label: "Earliest" },
-              { key: "duration", label: "Fastest" },
-            ] as const
-          ).map(({ key, label }) => (
-            <button
-              key={key}
-              onClick={() => setSortBy(key)}
-              className={cn(
-                "flex items-center gap-1 rounded-md px-3 py-1.5 text-xs font-medium transition-colors",
-                sortBy === key
-                  ? "bg-primary text-white"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {sortBy === key && <ArrowUpDown className="h-3 w-3" />}
-              {label}
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* Results count */}
-      <p className="text-xs text-muted-foreground">
+      <p className="mb-3 text-xs text-muted-foreground">
         {displayed.length} flight{displayed.length !== 1 ? "s" : ""} found
         {airlineFilter && ` for ${airlineFilter}`}
       </p>
 
       {/* Flight cards */}
-      <div className="space-y-3">
+      <div className="space-y-4 pb-4">
         {displayed.map((flight, index) => (
           <FlightCard
             key={flight.id}
             flight={flight}
             isBestPrice={index === 0 && sortBy === "price" && !airlineFilter}
+            isFastest={index === 0 && sortBy === "duration" && !airlineFilter}
             rank={index + 1}
           />
         ))}
