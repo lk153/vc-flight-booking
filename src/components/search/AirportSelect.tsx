@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { searchAirports } from "@/lib/airports";
 import type { Airport } from "@/types";
 import { cn } from "@/lib/utils";
+import { PlaneTakeoff, PlaneLanding } from "lucide-react";
 
 interface AirportSelectProps {
   label: string;
@@ -28,6 +29,8 @@ export function AirportSelect({
     (a) => a.iataCode === value
   );
 
+  const Icon = label === "From" ? PlaneTakeoff : PlaneLanding;
+
   useEffect(() => {
     const filtered = searchAirports(query).filter(
       (a) => a.iataCode !== excludeCode
@@ -50,9 +53,6 @@ export function AirportSelect({
 
   return (
     <div ref={containerRef} className="relative">
-      <label className="mb-1 block text-xs font-medium text-muted-foreground">
-        {label}
-      </label>
       <button
         type="button"
         onClick={() => {
@@ -61,23 +61,29 @@ export function AirportSelect({
           setTimeout(() => inputRef.current?.focus(), 0);
         }}
         className={cn(
-          "flex w-full overflow-hidden items-baseline gap-2 rounded-xl border border-border bg-muted px-4 py-3 text-left transition-all",
+          "flex w-full items-center gap-3 rounded-xl border border-border bg-muted px-3 py-3 text-left transition-all",
           "hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/20",
           isOpen && "border-primary ring-2 ring-primary/20"
         )}
       >
-        {selectedAirport ? (
-          <>
-            <span className="shrink-0 text-xl font-bold text-foreground">
-              {selectedAirport.iataCode}
-            </span>
-            <span className="min-w-0 truncate text-sm text-muted-foreground">
-              {selectedAirport.city}
-            </span>
-          </>
-        ) : (
-          <span className="text-sm text-muted-foreground">Select airport</span>
-        )}
+        <Icon className="h-4 w-4 shrink-0 text-muted-foreground" />
+        <div className="min-w-0 flex-1">
+          <span className="block text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+            {label}
+          </span>
+          {selectedAirport ? (
+            <div className="flex items-baseline gap-2">
+              <span className="text-base font-bold text-foreground">
+                {selectedAirport.iataCode}
+              </span>
+              <span className="truncate text-xs text-muted-foreground">
+                {selectedAirport.city}
+              </span>
+            </div>
+          ) : (
+            <span className="text-sm text-muted-foreground">Select airport</span>
+          )}
+        </div>
       </button>
 
       {isOpen && (

@@ -8,6 +8,7 @@ import { PriceCalendar } from "@/components/trends/PriceCalendar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { ArrowRightLeft, TrendingDown } from "lucide-react";
+import { BottomNav } from "@/components/ui/BottomNav";
 import type { PriceSnapshot } from "@/types";
 
 interface CalendarDay {
@@ -64,7 +65,7 @@ export default function TrendsPage() {
   }, [origin, destination]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20 sm:pb-0">
       <Header />
 
       <main className="mx-auto max-w-5xl px-4 pb-12">
@@ -135,6 +136,8 @@ export default function TrendsPage() {
           </div>
         )}
       </main>
+
+      <BottomNav />
     </div>
   );
 }
